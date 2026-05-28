@@ -1,101 +1,236 @@
 import { Reseñas } from './rese.js';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+// Replace these with your project's values
+const SUPABASE_URL = 'https://udpiihvoohushrkfnvqy.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkcGlpaHZvb2h1c2hya2ZudnF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNDEwNzUsImV4cCI6MjA5MTkxNzA3NX0.tes2oOyZFyMNVix2UxKCiJrEXmW8zsy5nL1fN-1H5dQ';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const contenedor = document.querySelector(".formulario-buscador");
 
-const { where, checkin, checkout, guests } = Reseñas.query;
+async function loadData() {
+  try {
+    let search = null;
+    try {
+      const { data: searches, error: errSearch } = await supabase.from('searches').select('*').limit(1).order('id', { ascending: true });
+      if (!errSearch) {
+        search = (searches && searches[0]) ? searches[0] : null;
+      }
+    } catch (err) {
+      console.warn('searches table error:', err);
+    }
 
-let html = `
-  <div class="input-grupo">
-    <span class="input-icono">
-      <img src="/reseñas/imagenes/Group (2).png" alt="">
-    </span>
-    <input type="text" value="${where}">
-  </div>
+    let query = search ? {
+      where: search.where,
+      checkin: search.checkin,
+      checkout: search.checkout,
+      guests: search.guests,
+    } : Reseñas.query;
 
-  <div class="input-grupo">
-    <span class="input-icono">
-      <img src="/reseñas/imagenes/calendar 1.png" alt="">
-    </span>
-    <input type="text" value="${checkin}">
-  </div>
+    // Only query filtered data if search exists, otherwise use fallback
+    let budget = Reseñas.filters.budgetRanges;
+    let popular = Reseñas.filters.popularFilters;
+    let acts = Reseñas.filters.activities;
+    let results = Reseñas.results;
 
-  <div class="input-grupo">
-    <span class="input-icono">
-      <img src="/reseñas/imagenes/calendar 1.png" alt="">
-    </span>
-    <input type="text" value="${checkout}">
-  </div>
+    // Query all data from tables (no filtering by search_id)
+    try {
+      const { data: budgetRanges, error: errBudget } = await supabase.from('budget_ranges').select('*');
+      if (!errBudget && budgetRanges && budgetRanges.length) budget = budgetRanges;
+    } catch (err) {
+      // ignore
+    }
 
-  <div class="input-grupo">
-    <span class="input-icono">
-      <img src="/reseñas/imagenes/user-square 1.png" alt="">
-    </span>
-    <input type="text" value="${guests}">
-  </div>
+    try {
+      const { data: popularFilters, error: errPopular } = await supabase.from('popular_filters').select('*');
+      if (!errPopular && popularFilters && popularFilters.length) popular = popularFilters;
+    } catch (err) {
+      // ignore
+    }
 
-  <button class="boton-principal">Search</button>
-`;
-contenedor.innerHTML  = html
+    try {
+      const { data: activities, error: errActivities } = await supabase.from('activities').select('*');
+      if (!errActivities && activities && activities.length) acts = activities;
+    } catch (err) {
+      // ignore
+    }
 
+    try {
+      const { data: hotels, error: errHotels } = await supabase.from('hotels').select('*').limit(100);
+      if (!errHotels && hotels && hotels.length) results = hotels;
+    } catch (err) {
+      // ignore
+    }
 
-let html2 =`
-    <span>${Reseñas.totalResults}</span>
-`
-document.querySelector("#num").innerHTML = html2
+    const totalResults = results.length || Reseñas.totalResults;
 
-
-let html3 = "";
-
-for (let i = 0; i < Reseñas.filters.budgetRanges.length; i++) {
- 
-
-  html3 += `
-    <label class="opcion-filtro">
-      <input type="checkbox">
-      <span>$ ${Reseñas.filters.budgetRanges[i].min} - $ ${Reseñas.filters.budgetRanges[i].max}</span>
-      <span class="cantidad-resultados">${Reseñas.filters.budgetRanges[i].count}</span>
-    </label>
-  `;
+    render(query, { budgetRanges: budget, popularFilters: popular, activities: acts }, results, totalResults);
+  } catch (e) {
+    console.error('Critical error:', e);
+    render(Reseñas.query, Reseñas.filters, Reseñas.results, Reseñas.totalResults);
+  }
 }
 
-document.querySelector(".filtro-precio").innerHTML = html3;
+function render(query, filters, results, totalResults) {
+  const { where, checkin, checkout, guests } = query;
 
+  let html = `
+    <div class="input-grupo">
+      <span class="input-icono">
+        <img src="/reseñas/imagenes/Group (2).png" alt="">
+      </span>
+      <input type="text" value="${where}">
+    </div>
 
+    <div class="input-grupo">
+      <span class="input-icono">
+        <img src="/reseñas/imagenes/calendar 1.png" alt="">
+      </span>
+      <input type="text" value="${checkin}">
+    </div>
 
+    <div class="input-grupo">
+      <span class="input-icono">
+        <img src="/reseñas/imagenes/calendar 1.png" alt="">
+      </span>
+      <input type="text" value="${checkout}">
+    </div>
 
+    <div class="input-grupo">
+      <span class="input-icono">
+        <img src="/reseñas/imagenes/user-square 1.png" alt="">
+      </span>
+      <input type="text" value="${guests}">
+    </div>
 
-let html4 = "";
-
-for (let i = 0; i < Reseñas.filters.popularFilters.length; i++) {
- 
-
-  html4 += `
-    <label class="opcion-filtro">
-      <input type="checkbox">
-      <span> ${Reseñas.filters.popularFilters[i].label}</span>
-      <span class="cantidad-resultados">${Reseñas.filters.popularFilters[i].count}</span>
-    </label>
+    <button class="boton-principal">Search</button>
   `;
+  contenedor.innerHTML = html;
+
+  document.querySelector("#num").innerHTML = `<span>${totalResults}</span>`;
+
+  // budget ranges
+  const precioContainer = document.querySelector(".filtro-precio");
+  let html3 = "";
+  if (filters.budgetRanges && filters.budgetRanges.length > 0) {
+    for (let i = 0; i < filters.budgetRanges.length; i++) {
+      const b = filters.budgetRanges[i];
+      html3 += `
+        <label class="opcion-filtro">
+          <input type="checkbox">
+          <span>$ ${b.min} - $ ${b.max}</span>
+          <span class="cantidad-resultados">${b.count}</span>
+        </label>
+      `;
+    }
+  }
+  if (precioContainer) {
+    precioContainer.innerHTML = html3;
+  }
+
+  // popular filters
+  let html4 = "";
+  for (let i = 0; i < filters.popularFilters.length; i++) {
+    const p = filters.popularFilters[i];
+    html4 += `
+      <label class="opcion-filtro">
+        <input type="checkbox">
+        <span> ${p.label}</span>
+        <span class="cantidad-resultados">${p.count}</span>
+      </label>
+    `;
+  }
+  document.querySelector(".Filtros").innerHTML = html4;
+
+  // activities
+  let html5 = "";
+  for (let i = 0; i < filters.activities.length; i++) {
+    const a = filters.activities[i];
+    html5 += `
+      <label class="opcion-filtro">
+        <input type="checkbox">
+        <span> ${a.label}</span>
+        <span class="cantidad-resultados">${a.count}</span>
+      </label>
+    `;
+  }
+  document.querySelector(".Act").innerHTML = html5;
+
+  // render hotels from results
+  const hotelsContainer = document.querySelector(".hotels-list");
+  if (hotelsContainer) {
+    let htmlHotels = "";
+    for (let i = 0; i < results.length; i++) {
+      const hotel = results[i];
+      const badgeClass = hotel.badge ? (hotel.badge.includes('30%') ? 'destacada' : 'especial') : '';
+      const badgeHtml = hotel.badge ? `<span class="etiqueta-oferta ${badgeClass}">${hotel.badge}</span>` : "";
+      const oldPriceHtml = hotel.oldPrice ? `<span class="precio-tachado">${hotel.oldPrice}</span>` : "";
+      
+      htmlHotels += `
+        <div class="ficha-alojamiento">
+          <img src="/reseñas/imagenes/Rectangle 25.png" alt="${hotel.name}" class="foto-alojamiento">
+          <div class="detalles-alojamiento">
+            <h2>${hotel.name}</h2>
+            ${badgeHtml}
+            <div class="puntuacion">⭐⭐⭐⭐⭐ ${hotel.rating || 4.5} (${hotel.reviewsCount || 1200} Reviews)</div>
+            <p class="lema-alojamiento">Live a little and celebrate with champagne</p>
+            <p class="resumen-alojamiento">${hotel.description || 'Reats include a glass of French champagne, parking and a late checkout. Gym included. Flexible cancellation applies.'}</p>
+            <button class="boton-secundario">See availability</button>
+          </div>
+          <div class="info-precio">
+            <span class="detalle-estancia">1 room 2 days</span>
+            ${oldPriceHtml}
+            <span class="precio-final">${hotel.pricePerNight || '$0'}</span>
+            <span class="aclaracion-precio">Includes taxes and fees</span>
+          </div>
+        </div>
+      `;
+    }
+    hotelsContainer.innerHTML = htmlHotels;
+  }
 }
 
-document.querySelector(".Filtros").innerHTML = html4;
+loadData();
 
+// Subscribe to real-time changes
+function subscribeToChanges() {
+  // Listen to budget_ranges changes
+  supabase
+    .channel('budget_ranges_changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'budget_ranges' }, (payload) => {
+      console.log('budget_ranges changed:', payload);
+      loadData();
+    })
+    .subscribe();
 
-let html5 = "";
+  // Listen to popular_filters changes
+  supabase
+    .channel('popular_filters_changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'popular_filters' }, (payload) => {
+      console.log('popular_filters changed:', payload);
+      loadData();
+    })
+    .subscribe();
 
-for (let i = 0; i < Reseñas.filters.activities.length; i++) {
- 
+  // Listen to activities changes
+  supabase
+    .channel('activities_changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'activities' }, (payload) => {
+      console.log('activities changed:', payload);
+      loadData();
+    })
+    .subscribe();
 
-  html5 += `
-    <label class="opcion-filtro">
-      <input type="checkbox">
-      <span> ${Reseñas.filters.activities[i].label}</span>
-      <span class="cantidad-resultados">${Reseñas.filters.activities[i].count}</span>
-    </label>
-  `;
+  // Listen to hotels changes
+  supabase
+    .channel('hotels_changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'hotels' }, (payload) => {
+      console.log('hotels changed:', payload);
+      loadData();
+    })
+    .subscribe();
 }
 
-document.querySelector(".Act").innerHTML = html5;
-
-
+subscribeToChanges();
 
