@@ -1,0 +1,574 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+.header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icono-marca {
+  color: #3b82f6;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.texto-marca {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.navegacion {
+  display: flex;
+  gap: 30px;
+}
+
+.enlace-nav {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.enlace-nav:hover,
+.enlace-nav.activo {
+  color: #1f2937;
+  border-bottom-color: #3b82f6;
+}
+
+.header-derecha {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icono-busqueda {
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.avatar-usuario img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+.contenido-principal {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+.titulo-pagina {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 20px;
+}
+
+
+.aviso-covid {
+  background: #fff9e6;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #856404;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.aviso-covid a {
+  color: #006ce4;
+  text-decoration: none;
+}
+
+
+.contenedor-checkout {
+  display: flex;
+  gap: 24px;
+}
+
+.columna-izquierda {
+  flex: 1;
+  min-width: 0;
+}
+
+.columna-derecha {
+  width: 300px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 80px;
+  align-self: flex-start;
+}
+
+
+.seccion-formulario {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.seccion-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.seccion-header-azul {
+  background: #3b82f6;
+}
+
+.seccion-header-naranja {
+  background: #f59e0b;
+}
+
+.icono-seccion {
+  display: flex;
+  align-items: center;
+}
+
+.texto-secundario-header {
+  font-weight: 400;
+  opacity: 0.9;
+  margin-left: 4px;
+}
+
+.seccion-contenido {
+  padding: 20px;
+}
+
+
+.fila-formulario {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.campo-formulario {
+  flex: 1;
+  margin-bottom: 16px;
+}
+
+.etiqueta-campo {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.input-campo {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #fff;
+  font-family: inherit;
+}
+
+.input-campo:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.input-corto {
+  max-width: 100px;
+}
+
+
+.telefono-grupo {
+  display: flex;
+  gap: 8px;
+}
+
+.select-pais {
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #fff;
+  cursor: pointer;
+  min-width: 90px;
+}
+
+.input-telefono {
+  flex: 1;
+}
+
+
+.campo-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.checkbox-input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+
+.pestanas-pago {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 20px;
+}
+
+.pestana-pago {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.pestana-pago:hover,
+.pestana-pago.activo {
+  color: #1f2937;
+  border-bottom-color: #1f2937;
+}
+
+
+.logos-tarjetas {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.logo-tarjeta {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+}
+
+
+.input-con-icono {
+  position: relative;
+}
+
+.input-con-icono .input-campo {
+  padding-right: 36px;
+}
+
+.icono-input {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+
+.grupo-expiracion {
+  display: flex;
+  gap: 12px;
+}
+
+.select-campo {
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #fff;
+  cursor: pointer;
+  min-width: 100px;
+  font-family: inherit;
+}
+
+.input-anio {
+  width: 100px;
+}
+
+
+.lista-informacion {
+  list-style: decimal;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.lista-informacion li {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.texto-legal {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.texto-legal a {
+  color: #3b82f6;
+}
+
+
+.boton-completar {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-block;
+}
+
+.boton-completar:hover {
+  background: #2563eb;
+}
+
+
+.aviso-seguridad {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.icono-seguridad {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+
+.tarjeta-hotel {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.imagen-hotel {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.info-hotel {
+  padding: 16px;
+}
+
+.nombre-hotel {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.valoracion-hotel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.estrellas {
+  display: flex;
+  gap: 2px;
+}
+
+.estrella {
+  color: #d1d5db;
+  font-size: 14px;
+}
+
+.estrella.rellena {
+  color: #fbbf24;
+}
+
+.texto-valoracion {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.etiqueta-reembolso {
+  display: inline-block;
+  background: #fef2f2;
+  color: #ef4444;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.detalles-reserva {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+}
+
+.detalle-item {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.detalle-label {
+  color: #6b7280;
+}
+
+.detalle-valor {
+  color: #1f2937;
+}
+
+
+.tarjeta-precio {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.precio-header {
+  background: #85E0AB;
+  color: #fff;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.precio-contenido {
+  padding: 16px;
+}
+
+.precio-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+.precio-total {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+  margin-top: 12px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.total-valor {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.enlace-cupon {
+  display: block;
+  font-size: 12px;
+  color: #3b82f6;
+  margin-bottom: 16px;
+}
+
+.campo-cupon {
+  margin-top: 12px;
+}
+
+.grupo-cupon {
+  display: flex;
+  gap: 8px;
+}
+
+.input-cupon {
+  flex: 1;
+}
+
+.boton-cupon {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.boton-cupon:hover {
+  background: #2563eb;
+}

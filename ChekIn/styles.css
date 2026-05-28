@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #1f2937;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    padding: 20px 40px;
+}
+
+.header1 {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icono img {
+    width: 18px;
+    height: 18px;
+}
+
+.texto-marca {
+    font-weight: 600;
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.confirmacion {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-top: -40px;
+}
+
+.imagen {
+    width: 240px;
+    height: 240px;
+    background-color: #fff6d8;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.imagen img {
+    width: 190px;
+    height: auto;
+}
+
+.titulo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.descripcion {
+    max-width: 420px;
+    text-align: center;
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 32px;
+}
+
+.descripcion strong {
+    color: #374151;
+    font-weight: 500;
+}
+
+
+.boton {
+    width: 100%;
+    max-width: 320px;
+    padding: 12px;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background-color: #1d4ed8;
+}

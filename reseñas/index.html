@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>my Dream Place - Hotel Booking</title>
+  <link rel="stylesheet" href="/reseñas/styles.css">
+</head>
+<body>
+
+  <header class="cabecera-principal">
+    <div class="cabecera-contenido">
+      <div class="logo">
+        <span class="logo-icono"><img src="/reseñas/imagenes/bxs-plane-alt 11.png" alt=""></span>
+        <span class="logo-texto">my Dream Place</span>
+        <script src="https://kit.fontawesome.com/6863636b69.js" crossorigin="anonymous"></script>
+      </div>
+      <nav class="menu-navegacion">
+        <a href="#" class="nav-enlace actual">Home</a>
+        <a href="#" class="nav-enlace">Discover</a>
+        <a href="#" class="nav-enlace">Activities</a>
+        <a href="#" class="nav-enlace">About</a>
+        <a href="#" class="nav-enlace">Contact</a>
+      </nav>
+      <div class="perfil-usuario">
+        <span class="notificacion-icono"><img src="/reseñas/imagenes/notification 1.png" alt=""></span>
+        <img src="/reseñas/imagenes/Ellipse 3.png" alt="" class="perfil-avatar">
+      </div>
+    </div>
+  </header>
+
+  <div class="area-buscador">
+    <div class="formulario-buscador">
+      
+    </div>
+  </div>
+
+ 
+  <div class="pagina-contenido">
+    <aside class="columna-filtros">
+      <div class="panel-filtro">
+        <h3>Search by property name</h3>
+        <div class="filtro-busqueda-nombre">
+          <span><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="text" placeholder="eg. Beach westpalm">
+        </div>
+      </div>
+      
+      <div class="panel-filtro">
+        <h3>Filter by</h3>
+        <h4>Your budget per day</h4>
+
+      <div class="filtro-precio">
+        
+      </div>
+        
+
+        <div class="control-presupuesto">
+          <span>Set your own budget</span>
+          <input type="checkbox" class="toggle-switch">
+        </div>
+      </div>
+
+      
+      <div class="panel-filtro">
+        <h4>Rating</h4>
+        <p class="ayuda-texto">Show only ratings more than</p>
+        <div class="selector-estrellas">
+          <span>1 ⭐</span>
+          <span>2 ⭐</span>
+          <span>3 ⭐</span>
+          <span>4 ⭐</span>
+          <span>5 ⭐</span>
+        </div>
+      </div>
+     
+      <div class="panel-filtro">
+        <h4>Popular Filters</h4>
+      <div class="Filtros">
+        
+
+      </div>
+        
+        
+    </div>
+      
+      <div class="panel-filtro">
+        <h4>Activities</h4>
+      <div class="Act">
+         
+      </div>
+       
+      </div>
+    </aside>
+    
+    <main class="seccion-resultados">
+      <h1 class="titulo-pagina">Melbourne : <span id="num"></span> results found</span></h1>
+      <div class="controles-listado">
+        <div class="grupo-pestanas">
+          <button class="pestana activa">Our top picks</button>
+          <button class="pestana">Hotel and apartments</button>
+          <button class="pestana">Residence</button>
+          <button class="pestana">Resort</button>
+          <button class="pestana">Shared Space</button>
+        </div>
+        <div class="selector-orden">
+          <span>Sort by</span>
+          <select>
+            <option>Recommended</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+     
+      <div class="ficha-alojamiento">
+        <img src="/reseñas/imagenes/Rectangle 25.png" alt="" class="foto-alojamiento">
+        <div class="detalles-alojamiento">
+          <h2>Lakeside Motel Warefront</h2>
+          <span class="etiqueta-oferta especial">Book now and receive 10% off</span>
+          <div class="puntuacion">⭐⭐⭐⭐⭐ 4.5 (1200 Reviews )</div>
+          <p class="lema-alojamiento">Live a little and celebrate with champagne</p>
+          <p class="resumen-alojamiento">Reats include a glass of French champagne, parking and a late checkout. Gym included. Flexible cancellation applies.</p>
+          <button class="boton-secundario">See availability</button>
+        </div>
+        <div class="info-precio">
+          <span class="etiqueta-ahorro">5% off</span>
+          <span class="detalle-estancia">1 room 2 days</span>
+          <span class="precio-tachado">$160</span>
+          <span class="precio-final">$130</span>
+          <span class="aclaracion-precio">Includes taxes and fees</span>
+        </div>  
+      </div>
+
+      <div class="ficha-alojamiento">
+        <img src="/reseñas/imagenes/Rectangle 30.png" alt="" class="foto-alojamiento">
+        <div class="detalles-alojamiento">
+          <h2>Julia Dens Resort</h2>
+          <div class="puntuacion">⭐⭐⭐⭐⭐ 4.5 (1200 Reviews)</div>
+          <p class="lema-alojamiento">Live a little and celibrate with champagne</p>
+          <p class="resumen-alojamiento">Reats include a glass of French champagne, parking and a late checkout. Gym included. Flexible cancellation applies.</p>
+          <button class="boton-secundario">See availability</button>
+        </div>
+        <div class="info-precio">
+          <span class="detalle-estancia">1 room 2 days</span>
+          <span class="precio-final">$240</span>
+          <span class="aclaracion-precio">Includes taxes and fees</span>
+        </div>
+      </div>
+
+      <div class="ficha-alojamiento">
+        <img src="/reseñas/imagenes/Rectangle 32.png" alt="" class="foto-alojamiento">
+        <div class="detalles-alojamiento">
+          <h2>Aghnim Scepter Hotel</h2>
+          <span class="etiqueta-oferta destacada">Receive 30% discount on a restaurant</span>
+          <div class="puntuacion">⭐⭐⭐⭐⭐ 4.5 (1200 Reviews)</div>
+          <p class="lema-alojamiento">Live a little and celibrate with champagne</p>
+          <p class="resumen-alojamiento">Reats include a glass of French champagne, parking and a late checkout. Gym included. Flexible cancellation applies.</p>
+          <button class="boton-secundario">See availability</button>
+        </div>
+        <div class="info-precio">
+          <span class="detalle-estancia">1 room 2 days</span>
+          <span class="precio-final">$300</span>
+          <span class="aclaracion-precio">Includes taxes and fees</span>
+        </div>
+      </div>
+      
+      <div class="ficha-alojamiento">
+        <img src="/reseñas/imagenes/Rectangle 34.png" alt="Marineford Hotel" class="foto-alojamiento">
+        <div class="detalles-alojamiento">
+          <h2>Marineford Hotel</h2>
+          <div class="puntuacion">⭐⭐⭐⭐⭐ 4.5 (1200 Reviews)</div>
+          <p class="lema-alojamiento">Live a little and celibrate with champagne</p>
+          <p class="resumen-alojamiento">Reats include a glass of French champagne, parking and a late checkout. Gym included. Flexible cancellation applies.</p>
+          <button class="boton-secundario">See availability</button>
+        </div>
+        <div class="info-precio">
+          <span class="detalle-estancia">1 room 2 days</span>
+          <span class="precio-final">$120</span>
+          <span class="aclaracion-precio">Includes taxes and fees</span>
+        </div>
+      </div>
+
+      <div class="ficha-alojamiento">
+        <img src="/reseñas/imagenes/Rectangle 51.png" alt="Shangai Open House" class="foto-alojamiento">
+        <div class="detalles-alojamiento">
+          <h2>Shangai Open House</h2>
+          <div class="puntuacion">⭐⭐⭐⭐⭐ 4.5 (1200 Reviews)</div>
+          <p class="lema-alojamiento">Live a little and celibrate with champagne</p>
+          <p class="resumen-alojamiento">Reats include a glass of French champagne, parking and a late checkout. Gym included. Flexible cancellation applies.</p>
+          <button class="boton-secundario">See availability</button>
+        </div>
+        <div class="info-precio">
+          <span class="detalle-estancia">1 room 2 days</span>
+          <span class="precio-final">$120</span>
+          <span class="aclaracion-precio">Includes taxes and fees</span>
+        </div>
+    </div>
+
+    <div class="ficha-alojamiento">
+        <img src="/reseñas/imagenes/Rectangle 52.png" alt="Ocean Waves Resort" class="foto-alojamiento">
+        <div class="detalles-alojamiento">
+          <h2>Ocean Waves Resort</h2>
+          <div class="puntuacion">⭐⭐⭐⭐⭐ 4.5 (1200 Reviews)</div>
+          <p class="lema-alojamiento">Live a little and celibrate with champagne</p>
+          <p class="resumen-alojamiento">Reats include a glass of French champagne, parking and a late checkout. Gym included. Flexible cancellation applies.</p>
+          <button class="boton-secundario">See availability</button>
+        </div>
+        <div class="info-precio">
+          <span class="detalle-estancia">1 room 2 days</span>
+          <span class="precio-final">$120</span>
+          <span class="aclaracion-precio">Includes taxes and fees</span>
+        </div>
+    </div>
+      
+    <div class="ficha-alojamiento">
+        <img src="/reseñas/imagenes/Rectangle 62.png" alt="Marineford Hotel" class="foto-alojamiento">
+    </div>
+
+    <div class="ficha-alojamiento">
+        <img src="/reseñas/imagenes/Rectangle 63.png" alt="Lakeside Motel Warefront" class="foto-alojamiento">
+        <div class="detalles-alojamiento">
+          <h2>Lakeside Motel Warefront</h2>
+          <span class="etiqueta-oferta especial">Book now and receive 10% off</span>
+          <div class="puntuacion">⭐⭐⭐⭐⭐ 4.5 (1200 Reviews)</div>
+          <p class="lema-alojamiento">Live a little and celebrate with champagne</p>
+          <p class="resumen-alojamiento">Reats include a glass of French champagne, parking and a late checkout. Gym included. Flexible cancellation applies.</p>
+          <button class="boton-secundario">See availability</button>
+        </div>
+        <div class="info-precio">
+          <span class="etiqueta-ahorro">15% off</span>
+          <span class="detalle-estancia">1 room 2 days</span>
+          <span class="precio-tachado">$320</span>
+          <span class="precio-final">$300</span>
+          <span class="aclaracion-precio">Includes taxes and fees</span>
+        </div>
+      </div>
+    </main>
+
+    </div>
+  </div>
+
+
+  <div class="banner-informativo">
+      <span class="banner-icono"><img src="/reseñas/imagenes/danger 1.png" alt=""></span>
+      <span>Check the latest COVID-19 restrictions before you travel.<a href="#"> Learn more</a></span>
+    </div>
+
+  <footer class="pie-de-pagina">
+    <div class="pie-contenido">
+      <div class="columna-pie marca-pie">
+        <div class="logo-pie">
+          <span class="logo-pie-icono"><img src="/reseñas/imagenes/bxs-plane-alt 1.png" alt=""></span>
+          <span class="logo-pie-texto">my Dream Place</span>
+        </div>
+        <p class="eslogan-pie">Your next goto companion for travel</p>
+      </div>
+
+      <div class="columna-pie">
+        <h4 class="titulo-pie">Company</h4>
+        <ul class="enlaces-pie">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Jobs</a></li>
+          <li><a href="#">Newsroom</a></li>
+          <li><a href="#">Advertising</a></li>
+          <li><a href="#">Contact us</a></li>
+        </ul>
+      </div>
+
+      <div class="columna-pie">
+        <h4 class="titulo-pie">Explore</h4>
+        <ul class="enlaces-pie">
+          <li><a href="#">Australia</a></li>
+          <li><a href="#">New Zealand</a></li>
+          <li><a href="#">United States America (USA)</a></li>
+          <li><a href="#">Greece</a></li>
+          <li><a href="#">Maldives</a></li>
+          <li><a href="#">Singapore</a></li>
+          <li><a href="#">See more</a></li>
+        </ul>
+      </div>
+
+      <div class="columna-pie">
+        <h4 class="titulo-pie">Terms and Policies</h4>
+        <ul class="enlaces-pie">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of use</a></li>
+          <li><a href="#">Acessibility</a></li>
+          <li><a href="#">Reward system policy</a></li>
+        </ul>
+      </div>
+
+      <div class="columna-pie">
+        <h4 class="titulo-pie">Help</h4>
+        <ul class="enlaces-pie">
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Cancel your bookings</a></li>
+          <li><a href="#">Use Coupon</a></li>
+          <li><a href="#">Refund Policies</a></li>
+          <li><a href="#">International Travel Documents</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pie-inferior">
+      <p>&copy; my Dream Place 2022</p>
+    </div>
+  </footer>
+
+  <script type="module"   src="/reseñas/index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+  }
+  
+  header {
+    text-align: center;
+    background-color: #212121;
+    color: #fff;
+    padding: 10px 0;
+  }
+  
+  main {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+  
+  .carta {
+    width: 300px;
+    height: 250px;
+    padding: 20px;
+    border: 2px solid #333;
+  }
+  
+  img {
+    width: 300px;
+    height: 200px;
+  }
+  
+  p {
+    text-align: center;
+  }
