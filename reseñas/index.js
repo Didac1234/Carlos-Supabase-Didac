@@ -1,11 +1,5 @@
 import { Reseñas } from './rese.js';
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
-// Replace these with your project's values
-const SUPABASE_URL = 'https://udpiihvoohushrkfnvqy.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkcGlpaHZvb2h1c2hya2ZudnF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNDEwNzUsImV4cCI6MjA5MTkxNzA3NX0.tes2oOyZFyMNVix2UxKCiJrEXmW8zsy5nL1fN-1H5dQ';
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { supabase } from '../supabaseClient.js';
 
 const contenedor = document.querySelector(".formulario-buscador");
 

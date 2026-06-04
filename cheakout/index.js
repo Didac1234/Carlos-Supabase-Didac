@@ -1,9 +1,4 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
-const SUPABASE_URL = 'https://udpiihvoohushrkfnvqy.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkcGlpaHZvb2h1c2hya2ZudnF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNDEwNzUsImV4cCI6MjA5MTkxNzA3NX0.tes2oOyZFyMNVix2UxKCiJrEXmW8zsy5nL1fN-1H5dQ';
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { supabase } from '../supabaseClient.js';
 
 const DEFAULT_CHECKOUT_DATA = {
   room: {
@@ -28,7 +23,24 @@ const DEFAULT_CHECKOUT_DATA = {
   policyItems: [],
 };
 
+const checkoutErrorBanner = document.getElementById('supabase-error');
+
+function showCheckoutError(message, details) {
+  if (checkoutErrorBanner) {
+    checkoutErrorBanner.style.display = 'block';
+    checkoutErrorBanner.innerHTML = `<strong>${message}</strong>${details ? `<div style="margin-top:8px;font-size:0.9rem;color:#881337;">${details}</div>` : ''}`;
+  }
+}
+
+function clearCheckoutError() {
+  if (checkoutErrorBanner) {
+    checkoutErrorBanner.style.display = 'none';
+    checkoutErrorBanner.textContent = '';
+  }
+}
+
 async function loadCheckoutData() {
+  clearCheckoutError();
   console.log('loadCheckoutData() start');
   let data = JSON.parse(JSON.stringify(DEFAULT_CHECKOUT_DATA));
 
@@ -37,7 +49,17 @@ async function loadCheckoutData() {
     const summaryRow = Array.isArray(summaryRows) ? summaryRows[0] : summaryRows;
     console.log('checkout_summaries result', { summaryRow, summaryError });
 
-    if (!summaryError && summaryRow) {
+    if (summaryError) {
+      const details = summaryError.message || summaryError.details || JSON.stringify(summaryError);
+      if (summaryError.status === 401) {
+        showCheckoutError('Error 401: no autorizado. Activa SELECT para la tabla checkout_summaries en Supabase.', details);
+      } else {
+        showCheckoutError('Error al cargar checkout_summaries.', details);
+      }
+      return;
+    }
+
+    if (summaryRow) {
       data.summaryCard.hotelId = summaryRow.hotelId || summaryRow.hotel_id || summaryRow.id || data.summaryCard.hotelId;
       data.summaryCard.hotelName = summaryRow.hotelName || summaryRow.hotel_name || summaryRow.name || summaryRow.hotel || data.summaryCard.hotelName;
       data.summaryCard.rating = summaryRow.rating ?? summaryRow.stars ?? data.summaryCard.rating;
@@ -51,6 +73,8 @@ async function loadCheckoutData() {
     }
   } catch (err) {
     console.warn('checkout_summaries query failed:', err);
+    showCheckoutError('Error al conectar con Supabase para checkout_summaries.', err.message || String(err));
+    return;
   }
 
   try {
@@ -58,30 +82,64 @@ async function loadCheckoutData() {
     const roomRow = Array.isArray(roomRows) ? roomRows[0] : roomRows;
     console.log('checkout_rooms result', { roomRow, roomError });
 
-    if (!roomError && roomRow) {
+    if (roomError) {
+      const details = roomError.message || roomError.details || JSON.stringify(roomError);
+      if (roomError.status === 401) {
+        showCheckoutError('Error 401: no autorizado. Activa SELECT para la tabla checkout_rooms en Supabase.', details);
+      } else {
+        showCheckoutError('Error al cargar checkout_rooms.', details);
+      }
+      return;
+    }
+
+    if (roomRow) {
       data.room.roomLabel = roomRow.roomLabel || roomRow.room_label || roomRow.name || data.room.roomLabel;
       data.room.summary = roomRow.summary || roomRow.description || data.room.summary;
     }
   } catch (err) {
     console.warn('checkout_rooms query failed:', err);
+    showCheckoutError('Error al conectar con Supabase para checkout_rooms.', err.message || String(err));
+    return;
   }
 
   try {
     const { data: policyRows, error: policyError } = await supabase.from('checkout_policy_items').select('*');
     console.log('checkout_policy_items result', { policyRows, policyError });
 
-    if (!policyError && Array.isArray(policyRows)) {
+    if (policyError) {
+      const details = policyError.message || policyError.details || JSON.stringify(policyError);
+      if (policyError.status === 401) {
+        showCheckoutError('Error 401: no autorizado. Activa SELECT para la tabla checkout_policy_items en Supabase.', details);
+      } else {
+        showCheckoutError('Error al cargar checkout_policy_items.', details);
+      }
+      return;
+    }
+
+    if (Array.isArray(policyRows)) {
       data.policyItems = policyRows.map(item => item.description || item.text || item.name || item.rule || 'Policy item');
     }
   } catch (err) {
     console.warn('checkout_policy_items query failed:', err);
+    showCheckoutError('Error al conectar con Supabase para checkout_policy_items.', err.message || String(err));
+    return;
   }
 
   try {
     const { data: priceRows, error: priceError } = await supabase.from('checkout_price_items').select('*');
     console.log('checkout_price_items result', { priceRows, priceError });
 
-    if (!priceError && Array.isArray(priceRows) && priceRows.length) {
+    if (priceError) {
+      const details = priceError.message || priceError.details || JSON.stringify(priceError);
+      if (priceError.status === 401) {
+        showCheckoutError('Error 401: no autorizado. Activa SELECT para la tabla checkout_price_items en Supabase.', details);
+      } else {
+        showCheckoutError('Error al cargar checkout_price_items.', details);
+      }
+      return;
+    }
+
+    if (Array.isArray(priceRows) && priceRows.length) {
       data.priceDetails.items = priceRows.map((row, index) => ({
         description: row.description || row.item || row.name || `Item ${index + 1}`,
         amount: Number(row.amount ?? row.price ?? row.total ?? 0),
@@ -91,6 +149,8 @@ async function loadCheckoutData() {
     }
   } catch (err) {
     console.warn('checkout_price_items query failed:', err);
+    showCheckoutError('Error al conectar con Supabase para checkout_price_items.', err.message || String(err));
+    return;
   }
 
   try {
@@ -98,13 +158,25 @@ async function loadCheckoutData() {
     const totalRow = Array.isArray(totalRows) ? totalRows[0] : totalRows;
     console.log('checkout_price_totals result', { totalRow, totalError });
 
-    if (!totalError && totalRow) {
+    if (totalError) {
+      const details = totalError.message || totalError.details || JSON.stringify(totalError);
+      if (totalError.status === 401) {
+        showCheckoutError('Error 401: no autorizado. Activa SELECT para la tabla checkout_price_totals en Supabase.', details);
+      } else {
+        showCheckoutError('Error al cargar checkout_price_totals.', details);
+      }
+      return;
+    }
+
+    if (totalRow) {
       const totalValue = Number(totalRow.total ?? totalRow.amount ?? totalRow.price ?? totalRow.value ?? data.priceDetails.total);
       data.priceDetails.total = Number.isFinite(totalValue) ? totalValue : data.priceDetails.total;
       data.priceDetails.currency = totalRow.currency || totalRow.moneda || data.priceDetails.currency;
     }
   } catch (err) {
     console.warn('checkout_price_totals query failed:', err);
+    showCheckoutError('Error al conectar con Supabase para checkout_price_totals.', err.message || String(err));
+    return;
   }
 
   try {
@@ -112,13 +184,25 @@ async function loadCheckoutData() {
     const searchRow = Array.isArray(searchRows) ? searchRows[0] : searchRows;
     console.log('searches query result', { searchRow, searchError });
 
-    if (!searchError && searchRow) {
+    if (searchError) {
+      const details = searchError.message || searchError.details || JSON.stringify(searchError);
+      if (searchError.status === 401) {
+        showCheckoutError('Error 401: no autorizado. Activa SELECT para la tabla searches en Supabase.', details);
+      } else {
+        showCheckoutError('Error al cargar searches.', details);
+      }
+      return;
+    }
+
+    if (searchRow) {
       data.summaryCard.checkIn = searchRow.checkin || searchRow.check_in || data.summaryCard.checkIn;
       data.summaryCard.checkOut = searchRow.checkout || searchRow.check_out || data.summaryCard.checkOut;
       data.summaryCard.stayNights = searchRow.stayNights || searchRow.stay_nights || data.summaryCard.stayNights;
     }
   } catch (err) {
     console.warn('searches query failed:', err);
+    showCheckoutError('Error al conectar con Supabase para searches.', err.message || String(err));
+    return;
   }
 
   renderCheckout(data);

@@ -1,14 +1,9 @@
 
-
-
-const supabaseUrl = "https://udpiihvoohushrkfnvqy.supabase.co";
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkcGlpaHZvb2h1c2hya2ZudnF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNDEwNzUsImV4cCI6MjA5MTkxNzA3NX0.tes2oOyZFyMNVix2UxKCiJrEXmW8zsy5nL1fN-1H5dQ"; 
-
-const client = supabase.createClient(supabaseUrl, supabaseAnonKey);
+import { supabase } from '../supabaseClient.js';
 
 
 async function carregarSitios() {
-  const { data, error } = await client.from("destacades").select("*");
+  const { data, error } = await supabase.from("destacades").select("*");
 
   if (error) {
     console.error("Error cargando sitios:", error);
@@ -32,7 +27,7 @@ async function carregarSitios() {
 
 
 async function carregarOfertes() {
-  const { data, error } = await client.from("ofertes").select("*");
+  const { data, error } = await supabase.from("ofertes").select("*");
 
   if (error) {
     console.error("Error cargando ofertas:", error);
@@ -56,7 +51,7 @@ async function carregarOfertes() {
 
 
 async function carregarPopulars() {
-  const { data, error } = await client.from("populars").select("*");
+  const { data, error } = await supabase.from("populars").select("*");
 
   if (error) {
     console.error("Error cargando populares:", error);
