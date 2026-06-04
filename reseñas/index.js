@@ -113,7 +113,7 @@ function render(query, filters, results, totalResults) {
       html3 += `
         <label class="opcion-filtro">
           <input type="checkbox">
-          <span>$ ${b.min} - $ ${b.max}</span>
+          <span>$ ${b.min_price ?? b.min} - $ ${b.max_price ?? b.max}</span>
           <span class="cantidad-resultados">${b.count}</span>
         </label>
       `;
@@ -159,11 +159,11 @@ function render(query, filters, results, totalResults) {
       const hotel = results[i];
       const badgeClass = hotel.badge ? (hotel.badge.includes('30%') ? 'destacada' : 'especial') : '';
       const badgeHtml = hotel.badge ? `<span class="etiqueta-oferta ${badgeClass}">${hotel.badge}</span>` : "";
-      const oldPriceHtml = hotel.oldPrice ? `<span class="precio-tachado">${hotel.oldPrice}</span>` : "";
+      const oldPriceHtml = (hotel.old_price ?? hotel.oldPrice) ? `<span class="precio-tachado">${hotel.old_price ?? hotel.oldPrice}</span>` : "";
       
       htmlHotels += `
         <div class="ficha-alojamiento">
-          <img src="/reseñas/imagenes/Rectangle 25.png" alt="${hotel.name}" class="foto-alojamiento">
+          <img src="${hotel.image_url ?? '/reseñas/imagenes/Rectangle 25.png'}" alt="${hotel.name}" class="foto-alojamiento">
           <div class="detalles-alojamiento">
             <h2>${hotel.name}</h2>
             ${badgeHtml}
@@ -175,7 +175,7 @@ function render(query, filters, results, totalResults) {
           <div class="info-precio">
             <span class="detalle-estancia">1 room 2 days</span>
             ${oldPriceHtml}
-            <span class="precio-final">${hotel.pricePerNight || '$0'}</span>
+            <span class="precio-final">${hotel.price_per_night ?? hotel.pricePerNight ?? '$0'}</span>
             <span class="aclaracion-precio">Includes taxes and fees</span>
           </div>
         </div>
